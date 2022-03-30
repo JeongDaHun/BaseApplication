@@ -2,6 +2,14 @@ package com.example.baseapplication.data.model
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * LottoModel
+ *
+ * @author Jeong.Da.Hun
+ * @version 1.0.0
+ * @since 2022-03-27
+ */
+
 data class LottoModel (
 
     @field:SerializedName("totSellamnt")

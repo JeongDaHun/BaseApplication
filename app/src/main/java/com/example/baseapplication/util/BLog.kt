@@ -1,22 +1,20 @@
 package com.example.baseapplication.util
 
 import android.util.Log
+import com.example.baseapplication.BuildConfig
 import java.lang.Exception
 import java.lang.StringBuilder
 
 /**
  * MLog : 로그확인
  *
- * @author Jung.Da.Hun
+ * @author Jeong.Da.Hun
  * @version 1.0.0
  * @since 2022-03-27
- */
+*/
 object BLog {
-    val TAG = BLog::class.java.simpleName
-
-    //private static final boolean LOG = false;//BuildConfig.DEBUG;
-//    private val LOG: Boolean = BuildConfig.DEBUG
-    private val LOG: Boolean = false
+    private val TAG = BLog::class.java.simpleName
+    private val LOG: Boolean = BuildConfig.DEBUG
 
     /**
      * Log.d에 대응한다.

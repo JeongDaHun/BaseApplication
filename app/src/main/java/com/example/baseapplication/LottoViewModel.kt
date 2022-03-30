@@ -6,6 +6,14 @@ import com.example.baseapplication.data.model.LottoModel
 import com.example.baseapplication.data.retrofit.BaseRetrofit
 import com.example.baseapplication.util.BLog
 
+/**
+ * LottoViewModel
+ *
+ * @author Jeong.Da.Hun
+ * @version 1.0.0
+ * @since 2022-03-27
+ */
+
 class LottoViewModel : BaseObservable() {
 
     //View에 표현 될, 로또 당첨 정보 문자열
@@ -29,10 +37,10 @@ class LottoViewModel : BaseObservable() {
 //                throwable.printStackTrace()
 //            }
 //        })
+        BLog.d("로또 조회")
 
         val retrofit = BaseRetrofit(object : BaseRetrofit.RetrofitListener {
             override fun onComplete(data: Any?, url: String?) {
-                TODO("Not yet implemented")
                 data?.let {
                     val lottoModel: LottoModel = data as LottoModel
                     val results = "${lottoModel.drwNo}회차 당첨번호 : " +
@@ -42,11 +50,9 @@ class LottoViewModel : BaseObservable() {
             }
 
             override fun onFail(errCode: Int, url: String?) {
-                TODO("Not yet implemented")
             }
 
             override fun onFail(message: String?, url: String?) {
-                TODO("Not yet implemented")
                 BLog.d("message = " + message + " url = " + url)
             }
         })

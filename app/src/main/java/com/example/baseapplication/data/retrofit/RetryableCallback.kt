@@ -6,6 +6,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * RetryableCallback
+ *
+ * @author Jeong.Da.Hun
+ * @version 1.0.0
+ * @since 2022-03-27
+ */
+
 abstract class RetryableCallback<T>(private val call: Call<T>, totalRetry: Int) : Callback<T> {
     private var totalRetry = 3
     private var retryCount = 0
@@ -33,7 +41,7 @@ abstract class RetryableCallback<T>(private val call: Call<T>, totalRetry: Int) 
     open fun onFinalResponse(call: Call<T>?, response: Response<T>?) {}
     open fun onFinalFailure(call: Call<T>?, t: Throwable?) {}
     private fun retry() {
-        //Log.d("RetryableCallback", "retry : " + retryCount);
+        BLog.d("RetryableCallback :: retry = $retryCount")
         call.clone().enqueue(this)
     }
 

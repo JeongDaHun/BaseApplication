@@ -4,6 +4,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * RetrofitHelper
+ *
+ * @author Jeong.Da.Hun
+ * @version 1.0.0
+ * @since 2022-03-27
+ */
+
 object RetrofitHelper {
     const val DEFAULT_RETRIES = 3
     fun <T> enqueueWithRetry(call: Call<T>, retryCount: Int, callback: Callback<T>) {
@@ -18,8 +26,8 @@ object RetrofitHelper {
         })
     }
 
-    fun <T> enqueueWithRetry(call: Call<T>, callback: Callback<T>) {
-        enqueueWithRetry(call, DEFAULT_RETRIES, callback)
+    fun <T> enqueueWithRetry(call: Call<T>, retryCount: Int?,  callback: Callback<T>) {
+        enqueueWithRetry(call, retryCount ?: DEFAULT_RETRIES, callback)
     }
 
     @JvmStatic
