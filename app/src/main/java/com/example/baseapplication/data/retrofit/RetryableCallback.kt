@@ -18,6 +18,7 @@ abstract class RetryableCallback<T>(private val call: Call<T>, totalRetry: Int) 
     private var totalRetry = 3
     private var retryCount = 0
     override fun onResponse(call: Call<T>, response: Response<T>) {
+        BLog.d("response = $response")
         if (!isCallSuccess(response)) {
             if (retryCount++ < totalRetry) {
                 retry()

@@ -1,14 +1,19 @@
 package com.example.baseapplication.data.retrofit
 
+import android.webkit.CookieManager
 import com.example.baseapplication.BuildConfig
 import com.example.baseapplication.data.model.LottoModel
 import com.example.baseapplication.data.retrofit.RetrofitHelper.enqueueWithRetry
 import com.example.baseapplication.util.BLog
+import com.example.baseapplication.util.DataUtil
+import com.example.baseapplication.util.Prefer
+import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 /**
  * BaseRetrofit
@@ -29,16 +34,19 @@ class BaseRetrofit(private val listener: RetrofitListener) {
     }
 
     init {
+        val gson = GsonBuilder().setLenient().create()
         if (BuildConfig.DEBUG) {
             mRetrofit = Retrofit.Builder()
                 .baseUrl(dev_baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             mRetrofitService = mRetrofit?.create(RetrofitApiService::class.java)
         } else {
             mRetrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
             mRetrofitService = mRetrofit?.create(RetrofitApiService::class.java)
         }
@@ -50,10 +58,20 @@ class BaseRetrofit(private val listener: RetrofitListener) {
         fun onFail(message: String?, url: String?)
     }
 
+    fun saveCookie(response: Response<String>) {
+        val cookie: String = response.headers().get("Set-Cookie").toString()
+        if (DataUtil.isNotNull(cookie)) {
+            val cookieManager = CookieManager.getInstance()
+            cookieManager.setCookie(response.raw().request().url().toString().split("?").first(), cookie)
+            cookieManager.flush()
+        }
+    }
+
     //로또 조회
         fun getLotto(drwNo: Int) {
-        val call: Call<LottoModel> = mRetrofitService!!.getLottoInfo(drwNo)
+        val call: Call<LottoModel> = mRetrofitService!!.getLottoInfo(drwNo=drwNo)
         BLog.d("getMsgCntList :: "+ "URL = " + call.request())
+        DataUtil.checkNull("dd")
         enqueueWithRetry(call, null, object : Callback<LottoModel> {
             override fun onResponse(call: Call<LottoModel>, response: Response<LottoModel>
             ) {

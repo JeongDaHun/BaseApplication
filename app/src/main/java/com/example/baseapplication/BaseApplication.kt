@@ -1,6 +1,8 @@
 package com.example.baseapplication
 
+import android.app.Activity
 import android.app.Application
+import android.content.Context
 
 /**
  * BaseApplication
@@ -12,6 +14,11 @@ import android.app.Application
 
 class BaseApplication: Application() {
 
+    private val mInstance: BaseApplication? = null
+    private val mActivity: Activity? = null
+    private var mTelNo: String? = null
+    private val mAppContext: Context? = null
+
     override fun onCreate() {
         super.onCreate()
     }
@@ -22,5 +29,18 @@ class BaseApplication: Application() {
 
     override fun onLowMemory() {
         super.onLowMemory()
+    }
+
+    /**
+     * 웹에서 전화걸기 시도시 전화번호 임시저장
+     *
+     * @param telNo 전화번호
+     */
+    fun setTempTelNo(telNo: String) {
+        this.mTelNo = telNo
+    }
+
+    fun getTempTelNo(): String? {
+        return mTelNo
     }
 }

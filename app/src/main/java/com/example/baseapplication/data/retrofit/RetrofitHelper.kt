@@ -13,7 +13,7 @@ import retrofit2.Response
  */
 
 object RetrofitHelper {
-    const val DEFAULT_RETRIES = 3
+    private const val DEFAULT_RETRIES = 3
     fun <T> enqueueWithRetry(call: Call<T>, retryCount: Int, callback: Callback<T>) {
         call.enqueue(object : RetryableCallback<T>(call, retryCount) {
             override fun onFinalResponse(call: Call<T>?, response: Response<T>?) {
@@ -33,6 +33,6 @@ object RetrofitHelper {
     @JvmStatic
     fun isCallSuccess(response: Response<*>): Boolean {
         val code = response.code()
-        return code >= 200 && code < 400
+        return code in 200..399
     }
 }
