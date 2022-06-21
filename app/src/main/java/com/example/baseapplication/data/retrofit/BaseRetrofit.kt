@@ -58,17 +58,50 @@ class BaseRetrofit(private val listener: RetrofitListener) {
         fun onFail(message: String?, url: String?)
     }
 
-    fun saveCookie(response: Response<String>) {
-        val cookie: String = response.headers().get("Set-Cookie").toString()
+    private fun saveCookie(response: Response<String>, url: String) {
+        val cookie: String = response.headers()["Set-Cookie"].toString()
         if (DataUtil.isNotNull(cookie)) {
             val cookieManager = CookieManager.getInstance()
-            cookieManager.setCookie(response.raw().request().url().toString().split("?").first(), cookie)
+            cookieManager.setCookie(url, cookie)
             cookieManager.flush()
         }
     }
 
+    private fun enqueue(call: Call<String>, url: String, param: HashMap<String, String>?) {
+        MLog.d("call = $call / ${call.request()}")
+        enqueueWithRetry(call, null, object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+                    saveCookie(response, url)
+                    val data: String = JexAESEncrypt.decrypt(response.body())
+                    Logs.printJsonLog(url, Gson().toJson(param).toString(), data)
+                    listener.onComplete(data, url)
+                } else {
+                    listener.onFail(response.code(), url)
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                listener.onFail(t.toString(), url)
+            }
+        })
+    }
+
+    //서비스 요청
+    fun requestService(service: WasServiceUrl, param: HashMap<String, Any>) {
+        val path: String = service.serviceId
+        val url: String = service.serviceUrl
+        MLog.d("path = $path / url = $url")
+        val params : HashMap<String, String> = HashMap()
+        for((key, value) in param) {
+            params[key] = value.toString()
+        }
+        val call: Call<String> = mRetrofitService.requestService(path, HttpUtils.mUserAgent ?: "", CookieManager.getInstance().getCookie(url) ?: "", params)
+        enqueue(call, url, params)
+    }
+
     //로또 조회
-        fun getLotto(drwNo: Int) {
+    fun getLotto(drwNo: Int) {
         val call: Call<LottoModel> = mRetrofitService!!.getLottoInfo(drwNo=drwNo)
         BLog.d("getMsgCntList :: "+ "URL = " + call.request())
         DataUtil.checkNull("dd")
