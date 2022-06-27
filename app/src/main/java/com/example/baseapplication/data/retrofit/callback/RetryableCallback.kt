@@ -1,6 +1,6 @@
-package com.example.baseapplication.data.retrofit
+package com.example.baseapplication.data.retrofit.callback
 
-import com.example.baseapplication.data.retrofit.RetrofitHelper.isCallSuccess
+import com.example.baseapplication.data.retrofit.callback.RetrofitHelper.isCallSuccess
 import com.example.baseapplication.util.BLog
 import retrofit2.Call
 import retrofit2.Callback

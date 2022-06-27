@@ -1,4 +1,4 @@
-package com.example.baseapplication.data.retrofit
+package com.example.baseapplication.data.retrofit.callback
 
 import retrofit2.Call
 import retrofit2.Callback

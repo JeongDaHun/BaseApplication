@@ -1,4 +1,4 @@
-package com.example.baseapplication.data.retrofit
+package com.example.baseapplication.data.retrofit.callback
 
 import android.webkit.CookieManager
 import com.example.baseapplication.BuildConfig
@@ -23,9 +23,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  * @since 2022-03-27
  */
 
-class BaseRetrofit(private val listener: RetrofitListener) {
+class RetrofitApiService(private val listener: RetrofitListener) {
     private var mRetrofit: Retrofit? = null
-    private var mRetrofitService: RetrofitApiService? = null
+    private var mRetrofitInterface: RetrofitApiInterface? = null
 
     companion object {
         private const val baseUrl = " https://www.dhlottery.co.kr/"
@@ -41,14 +41,14 @@ class BaseRetrofit(private val listener: RetrofitListener) {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
-            mRetrofitService = mRetrofit?.create(RetrofitApiService::class.java)
+            mRetrofitInterface = mRetrofit?.create(RetrofitApiInterface::class.java)
         } else {
             mRetrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
-            mRetrofitService = mRetrofit?.create(RetrofitApiService::class.java)
+            mRetrofitInterface = mRetrofit?.create(RetrofitApiInterface::class.java)
         }
     }
 
@@ -73,7 +73,7 @@ class BaseRetrofit(private val listener: RetrofitListener) {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
                     saveCookie(response, url)
-//                    val data: String = JexAESEncrypt.decrypt(response.body())
+//                    val data: String = AESEncrypt.decrypt(response.body())
 //                    Logs.printJsonLog(url, Gson().toJson(param).toString(), data)
 //                    listener.onComplete(data, url)
                     listener.onComplete(response.body(), call.request().url.toString())
@@ -97,14 +97,13 @@ class BaseRetrofit(private val listener: RetrofitListener) {
         for((key, value) in param) {
             params[key] = value.toString()
         }
-//        val call: Call<String> = mRetrofitService!!.requestService(path, HttpUtils.mUserAgent ?: "", CookieManager.getInstance().getCookie(url) ?: "", params)
-        val call: Call<String> = mRetrofitService!!.requestService(path, "", CookieManager.getInstance().getCookie(url) ?: "", params)
+        val call: Call<String> = mRetrofitInterface!!.requestService(path, CookieManager.getInstance().getCookie(url) ?: "", params)
         enqueue(call, url, params)
     }
 
     //로또 조회
-    fun getLotto(drwNo: Int) {
-        val call: Call<LottoModel> = mRetrofitService!!.getLottoInfo(drwNo=drwNo)
+        fun getLotto(drwNo: Int) {
+        val call: Call<LottoModel> = mRetrofitInterface!!.getLottoInfo(drwNo=drwNo)
         BLog.d("getMsgCntList :: "+ "URL = " + call.request())
         DataUtil.checkNull("dd")
         enqueueWithRetry(call, null, object : Callback<LottoModel> {
