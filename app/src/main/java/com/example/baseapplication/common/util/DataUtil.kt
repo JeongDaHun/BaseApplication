@@ -1,4 +1,4 @@
-package com.example.baseapplication.util
+package com.example.baseapplication.common.util
 
 import kotlin.jvm.JvmOverloads
 import android.os.Parcel

@@ -1,12 +1,12 @@
-package com.example.baseapplication.data.retrofit.callback
+package com.example.baseapplication.common.retrofit.callback
 
 import android.webkit.CookieManager
 import com.example.baseapplication.BuildConfig
-import com.example.baseapplication.data.model.LottoModel
-import com.example.baseapplication.data.retrofit.callback.RetrofitHelper.enqueueWithRetry
-import com.example.baseapplication.util.BLog
-import com.example.baseapplication.util.DataUtil
-import com.example.baseapplication.util.WasService
+import com.example.baseapplication.model.LottoModel
+import com.example.baseapplication.common.retrofit.callback.RetrofitHelper.enqueueWithRetry
+import com.example.baseapplication.common.util.BLog
+import com.example.baseapplication.common.util.DataUtil
+import com.example.baseapplication.common.util.WasService
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback

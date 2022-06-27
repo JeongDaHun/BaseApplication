@@ -1,4 +1,4 @@
-package com.example.baseapplication.util
+package com.example.baseapplication.common.util
 
 /**
  * WasServiceUrl : WAS SERVICE URL

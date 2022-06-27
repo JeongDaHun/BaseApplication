@@ -1,11 +1,10 @@
-package com.example.baseapplication
+package com.example.baseapplication.viewModel
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.viewModelScope
-import com.example.baseapplication.data.model.LottoModel
-import com.example.baseapplication.data.retrofit.callback.RetrofitApiService as callbackApiService
-import com.example.baseapplication.data.retrofit.coroutine.RetrofitApiService
-import com.example.baseapplication.util.BLog
+import com.example.baseapplication.model.LottoModel
+import com.example.baseapplication.common.retrofit.coroutine.RetrofitApiService
+import com.example.baseapplication.common.util.BLog
 import kotlinx.coroutines.async
 
 /**

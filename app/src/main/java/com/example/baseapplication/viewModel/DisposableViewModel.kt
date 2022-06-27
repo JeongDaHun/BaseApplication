@@ -1,7 +1,7 @@
-package com.example.baseapplication
+package com.example.baseapplication.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.baseapplication.util.BLog
+import com.example.baseapplication.common.util.BLog
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 

@@ -1,8 +1,8 @@
-package com.example.baseapplication.util
+package com.example.baseapplication.common.util
 
 import android.Manifest
-import com.example.baseapplication.util.DataUtil.isNotNull
-import com.example.baseapplication.util.DataUtil.isNull
+import com.example.baseapplication.common.util.DataUtil.isNotNull
+import com.example.baseapplication.common.util.DataUtil.isNull
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.telephony.TelephonyManager

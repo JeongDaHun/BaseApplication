@@ -1,6 +1,6 @@
-package com.example.baseapplication.data.retrofit
+package com.example.baseapplication.common.retrofit
 
-import com.example.baseapplication.data.model.LottoModel
+import com.example.baseapplication.model.LottoModel
 import retrofit2.Call
 import retrofit2.http.*
 

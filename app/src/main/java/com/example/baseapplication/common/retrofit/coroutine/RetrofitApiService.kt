@@ -1,7 +1,6 @@
-package com.example.baseapplication.data.retrofit.coroutine
+package com.example.baseapplication.common.retrofit.coroutine
 
 import com.example.baseapplication.BuildConfig
-import com.example.baseapplication.data.retrofit.coroutine.RetrofitApiInterface
 import com.google.gson.GsonBuilder
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient

@@ -1,6 +1,6 @@
-package com.example.baseapplication.util
+package com.example.baseapplication.common.util
 
-import com.example.baseapplication.util.DataUtil.isNotNull
+import com.example.baseapplication.common.util.DataUtil.isNotNull
 import android.app.Activity
 import android.content.Context
 import androidx.core.content.ContextCompat

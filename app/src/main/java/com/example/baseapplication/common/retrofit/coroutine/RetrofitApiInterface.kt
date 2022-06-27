@@ -1,6 +1,6 @@
-package com.example.baseapplication.data.retrofit.coroutine
+package com.example.baseapplication.common.retrofit.coroutine
 
-import com.example.baseapplication.data.model.LottoModel
+import com.example.baseapplication.model.LottoModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers

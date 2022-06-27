@@ -1,4 +1,4 @@
-package com.example.baseapplication.util
+package com.example.baseapplication.common.util
 
 /**
  * Const : 공통으로 사용하는 상수를 정의

@@ -1,7 +1,7 @@
-package com.example.baseapplication.data.retrofit.callback
+package com.example.baseapplication.common.retrofit.callback
 
-import com.example.baseapplication.data.model.LottoModel
-import com.example.baseapplication.data.retrofit.RetrofitApiService
+import com.example.baseapplication.model.LottoModel
+import com.example.baseapplication.common.retrofit.RetrofitApiService
 import retrofit2.Call
 import retrofit2.http.*
 
